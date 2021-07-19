@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\module\LinearAlgebra\matrix.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\Image\image.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\course\assignment0.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\Random\RandomModule.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\course\assignment0\IFS.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\Core\scene_parser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\course\assignment1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\Primitives\Sphere.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\Core\Camera.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\Primitives\Group.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\module\Image\image.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\LinearAlgebra\matrix.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\LinearAlgebra\vectors.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\course\AssignmentIndex.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\Random\RandomModule.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\course\assignment0\IFS.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Core\scene_parser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Core\material.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Core\ray.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Core\Object3D.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Primitives\Sphere.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Core\Camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Primitives\Group.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Core\light.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Primitives\Transform.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Primitives\Plane.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Primitives\Triangle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Core\hit.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\VersionControl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
