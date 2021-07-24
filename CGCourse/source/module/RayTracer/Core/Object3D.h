@@ -8,5 +8,6 @@ class Object3D
 {
 public:
 	virtual bool intersect(const Ray& r, Hit& h, float tmin) = 0;
+	virtual void paint(void) = 0;
 	Material* mat;
 };

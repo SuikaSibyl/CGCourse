@@ -9,6 +9,7 @@ public:
 	Group(int num);
 	~Group();
 	virtual bool intersect(const Ray& r, Hit& h, float tmin) override;
+	virtual void paint(void) override;
 	void addObject(int index, Object3D* obj);
 
 private:

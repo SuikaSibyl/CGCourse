@@ -48,8 +48,19 @@ bool Sphere::intersect(const Ray& r, Hit& h, float tmin)
 #if(RTVersion==1)
 		h.set(nearest, this->mat, r);
 #endif
+#if(RTVersion==2)
+		Vec3f hitpoint = r.pointAtParameter(nearest);
+		Vec3f normal = hitpoint - center;
+		normal.Normalize();
+		h.set(nearest, this->mat, normal, r);
+#endif
 	}
 
 	// Do intersect
 	return true;
+}
+
+void Sphere::paint(void)
+{
+
 }

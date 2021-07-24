@@ -1,8 +1,8 @@
 #include <iostream>
 #include <stdio.h>
 #include "course/AssignmentIndex.h"
+#include "Settings.h"
 
-#define ASSIGNMENT 1
 int main(int argc, char* argv[])
 {
 #if(ASSIGNMENT==0)
@@ -10,5 +10,11 @@ int main(int argc, char* argv[])
 #endif
 #if(ASSIGNMENT==1)
 	Assignment::Assignment1Main(argc, argv);
+#endif
+#if(ASSIGNMENT==2)
+	Assignment::Assignment2Main(argc, argv);
+#endif
+#if(ASSIGNMENT==3)
+	Assignment::Assignment3Main(argc, argv);
 #endif
 }

@@ -48,6 +48,27 @@
     <ClCompile Include="source\module\RayTracer\Primitives\Group.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="source\course\assignment2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\Primitives\Plane.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\Primitives\Triangle.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\Primitives\Transform.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\OpenGL\Core\GLCanvas.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\Core\light.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\course\assignment3.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\module\Image\image.h">
@@ -105,6 +126,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="source\module\RayTracer\VersionControl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\OpenGL\Core\GLCanvas.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\OpenGL\ThirdParty\glut.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Settings.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

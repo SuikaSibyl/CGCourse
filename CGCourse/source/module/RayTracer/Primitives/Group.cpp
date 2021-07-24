@@ -28,3 +28,14 @@ void Group::addObject(int index, Object3D* obj)
 {
 	list[index] = obj;
 }
+
+void Group::paint(void)
+{
+	for (int i = 0; i < objnum; i++)
+	{
+		if (list[i] != NULL)
+		{
+			list[i]->paint();
+		}
+	}
+}

@@ -29,4 +29,21 @@ protected:
 // ====================================================================
 // ====================================================================
 
+class PhongMaterial : public Material
+{
+public:
+	PhongMaterial(const Vec3f& diffuseColor, const Vec3f& specularColor, const float& exponent)
+		: Material(diffuseColor)
+		, specularColor(specularColor)
+		, exponent(exponent)
+	{
+
+	}
+
+private:
+	// REPRESENTATION
+	Vec3f specularColor;
+	float exponent;
+};
+
 #endif
