@@ -2,11 +2,16 @@
 #define _MATERIAL_H_
 
 #include "vectors.h"
+#include "../VersionControl.h"
 
 // ====================================================================
 // ====================================================================
 
 // You will extend this class in later assignments
+
+
+class Hit;
+class Ray;
 
 class Material {
 
@@ -19,6 +24,12 @@ public:
   // ACCESSORS
   virtual Vec3f getDiffuseColor() const { return diffuseColor; }
 
+#if (RTVersion>2)
+  virtual Vec3f Shade (const Ray& ray, const Hit& hit, const Vec3f& dirToLight,
+	  const Vec3f& lightColor) const = 0;
+
+  virtual void glSetMaterial(void) const = 0;
+#endif
 protected:
 
   // REPRESENTATION
@@ -40,6 +51,12 @@ public:
 
 	}
 
+	virtual Vec3f getSpecularColor() const { return specularColor; }
+
+	virtual Vec3f Shade(const Ray& ray, const Hit& hit, const Vec3f& dirToLight,
+		const Vec3f& lightColor) const;
+
+	virtual void glSetMaterial(void) const;
 private:
 	// REPRESENTATION
 	Vec3f specularColor;

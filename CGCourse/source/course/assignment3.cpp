@@ -5,6 +5,7 @@
 #include <Image/image.h>
 #include <RayTracer/Core/Camera.h>
 #include <RayTracer/Primitives/Group.h>
+#include <RayTracer/Primitives/Sphere.h>
 #include <limits>
 #include <RayTracer/Core/light.h>
 #include <OpenGL/Core/GLCanvas.h>
@@ -35,8 +36,8 @@ void Render()
     pImg.SetAllPixels(scene->getBackgroundColor());
     Vec3f black(0, 0, 0);
     pImgD.SetAllPixels(black);
-    NORMALMAP(pImgN.SetAllPixels(black);)
-        Material black_mat(black);
+    NORMALMAP(pImgN.SetAllPixels(black););
+    Material* black_mat = new PhongMaterial(black, black, 0);
 
     // prepare
     Camera* camera = scene->getCamera();
@@ -49,7 +50,7 @@ void Render()
     for (int i = 0; i < size_width; i++)
         for (int j = 0; j < size_height; j++)
         {
-            Hit hit((float)numeric_limits<float>::max(), &black_mat, Vec3f(0, 0, 0));
+            Hit hit((float)numeric_limits<float>::max(), black_mat, Vec3f(0, 0, 0));
             Ray r = camera->generateRay(Vec2f(step_width * i, step_height * j));
             bool intersected = group->intersect(r, hit, tmin);
             if (intersected)
@@ -71,26 +72,23 @@ void Render()
                     Light* light = scene->getLight(k);
                     Vec3f dir, col;
                     light->getIllumination(position, dir, col);
-                    Vec3f diffuse(0, 0, 0);
-                    Vec3f::Mult(diffuse, albedo, col);
-                    float cosine = normal.Dot3(dir);
-                    diffuse *= shadeback ? abs(normal.Dot3(dir)) : max(normal.Dot3(dir), 0.0f);
-                    radiance += diffuse;
+                    Vec3f outrad = hit.getMaterial()->Shade(r, hit, dir, col);
+                    radiance += outrad;
                 }
 
                 pImg.SetPixel(i, j, radiance);
 
                 NORMALMAP(
                     pImgN.SetPixel(i, j, Vec3f(abs(normal.x()), abs(normal.y()), abs(normal.z())));
-                )
+                );
 
-                    DEPTHMAP(
-                        float depth = hit.getT();
+                DEPTHMAP(
+                    float depth = hit.getT();
                 depth = (depth - depth_min) * depth_rerange;
                 if (depth > 1) depth = 1;
                 depth = 1 - depth;
                 pImgD.SetPixel(i, j, Vec3f(depth, depth, depth));
-                )
+                );
             }
         }
 
@@ -141,6 +139,15 @@ int Assignment::Assignment3Main(int argc, char* argv[])
         }
         else if (!strcmp(argv[i], "-gui")) {
             useGUI = true;
+        }
+        else if (!strcmp(argv[i], "-tessellation")) {
+            i++; assert(i < argc);
+            tessx = atoi(argv[i]);
+            i++; assert(i < argc);
+            tessy = atoi(argv[i]); 
+        }
+        else if (!strcmp(argv[i], "-gouraud")) {
+            gouraud = true;
         }
         else {
             printf("whoops error with command line argument %d: '%s'\n", i, argv[i]);

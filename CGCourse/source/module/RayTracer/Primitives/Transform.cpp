@@ -1,10 +1,12 @@
 #include "Transform.h"
+#include <Windows.h>
+#include <gl/GL.h>
 
 Transform::Transform(Matrix& m, Object3D* o)
-	:matrix(m), Object(o)
+	:matrix(m), inverse(m), Object(o)
 {
-	matrix.Inverse();
-	invTranspose = Matrix(matrix);
+	inverse.Inverse();
+	invTranspose = Matrix(inverse);
 	invTranspose.Transpose();
 }
 
@@ -12,13 +14,13 @@ bool Transform::intersect(const Ray& r, Hit& h, float tmin)
 {
 	Vec3f origin = r.getOrigin();
 	Vec3f direction = r.getDirection();
-	matrix.Transform(origin);
-	matrix.TransformDirection(direction);
+	inverse.Transform(origin);
+	inverse.TransformDirection(direction);
 	float scale = direction.Length();
 	direction.Normalize();
 
 	Ray osr(origin, direction);
-	Hit hit((float)numeric_limits<float>::max(), nullptr, Vec3f(0, 0, 0));
+	Hit hit(99999, nullptr, Vec3f(0, 0, 0));
 	if (Object->intersect(osr, hit, tmin / scale))
 	{
 		float t = hit.getT() / scale;
@@ -36,5 +38,10 @@ bool Transform::intersect(const Ray& r, Hit& h, float tmin)
 
 void Transform::paint(void)
 {
-
+	glPushMatrix();
+	GLfloat* glMatrix = matrix.glGet();
+	glMultMatrixf(glMatrix);
+	Object->paint();
+	delete[] glMatrix;
+	glPopMatrix();
 }

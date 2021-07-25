@@ -23,7 +23,7 @@ class SceneParser;
 
 //   0: don't fix   
 //   1: do fix
-#define SPECULAR_FIX 0 
+#define SPECULAR_FIX 1 
 
 // ====================================================================
 

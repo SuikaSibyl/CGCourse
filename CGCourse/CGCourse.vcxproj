@@ -172,6 +172,7 @@
     <ClCompile Include="source\module\Random\RandomModule.cpp" />
     <ClCompile Include="source\module\RayTracer\Core\Camera.cpp" />
     <ClCompile Include="source\module\RayTracer\Core\light.cpp" />
+    <ClCompile Include="source\module\RayTracer\Core\material.cpp" />
     <ClCompile Include="source\module\RayTracer\Core\scene_parser.cpp" />
     <ClCompile Include="source\module\RayTracer\Primitives\Group.cpp" />
     <ClCompile Include="source\module\RayTracer\Primitives\Plane.cpp" />

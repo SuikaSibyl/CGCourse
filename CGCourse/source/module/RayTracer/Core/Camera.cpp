@@ -18,6 +18,13 @@ OrthographicCamera::OrthographicCamera(Vec3f center, Vec3f direction, Vec3f up, 
 	:size(size)
 	,center(center)
 {
+	this->direction = direction;
+	this->up = up;
+	RefreshCamera();
+}
+
+void OrthographicCamera::RefreshCamera()
+{
 	direction.Normalize();
 	up.Normalize();
 
@@ -26,7 +33,7 @@ OrthographicCamera::OrthographicCamera(Vec3f center, Vec3f direction, Vec3f up, 
 	Vec3f::Cross3(this->up, this->horizontal, direction);
 
 	this->horizontal *= size;
-	this->up		 *= size;
+	this->up *= size;
 	leftbottom = this->center - 0.5 * this->horizontal - 0.5 * this->up;
 }
 
@@ -59,6 +66,7 @@ void OrthographicCamera::glPlaceCamera(void) {
 // ==================================================================== 
 void OrthographicCamera::dollyCamera(float dist) {
 	center += direction * dist;
+	RefreshCamera();
 }
 
 // ==================================================================== 
@@ -66,11 +74,16 @@ void OrthographicCamera::dollyCamera(float dist) {
 // ==================================================================== 
 void OrthographicCamera::truckCamera(float dx, float dy) {
 	center += horizontal * dx + up * dy;
+	RefreshCamera();
 }
 // ==================================================================== 
 // rotateCamera: Rotate around the up and horizontal vectors 
 // ====================================================================
 void OrthographicCamera::rotateCamera(float rx, float ry) {
+
+	//Vec3f horizontal; Vec3f::Cross3(this->horizontal, direction, up);
+	//horizontal.Normalize();
+
 	// Don't let the model flip upside-down (There is a singularity 
 	// at the poles when 'up' and 'direction' are aligned) 
 	float tiltAngle = acos(up.Dot3(direction));
@@ -82,6 +95,8 @@ void OrthographicCamera::rotateCamera(float rx, float ry) {
 	rotMat *= Matrix::MakeAxisRotation(horizontal, ry);
 	rotMat.Transform(center);
 	rotMat.TransformDirection(direction);
+
+	RefreshCamera();
 }
 
 // ==============================================
@@ -110,12 +125,14 @@ void PerspectiveCamera::glPlaceCamera(void) {
 // ==================================================================== 
 void PerspectiveCamera::dollyCamera(float dist) {
 	center += direction * dist;
+	RefreshCamera();
 } 
 // ==================================================================== 
 // truckCamera: Translate camera perpendicular to the direction vector 
 // ==================================================================== 
 void PerspectiveCamera::truckCamera(float dx, float dy) {
 	center += horizontal * dx + up * dy;
+	RefreshCamera();
 }
 // ==================================================================== 
 // rotateCamera: Rotate around the up and horizontal vectors 
@@ -133,10 +150,18 @@ void PerspectiveCamera::rotateCamera(float rx, float ry) {
 	rotMat.Transform(center);
 	rotMat.TransformDirection(direction);
 	direction.Normalize();
+	RefreshCamera();
 }
 
 PerspectiveCamera::PerspectiveCamera(Vec3f center, Vec3f& direction, Vec3f& up, float angle)
-	:center(center)
+	:center(center), angle(angle)
+{
+	this->direction = direction;
+	this->up = up;
+	RefreshCamera();
+}
+
+void PerspectiveCamera::RefreshCamera()
 {
 	direction.Normalize();
 	up.Normalize();

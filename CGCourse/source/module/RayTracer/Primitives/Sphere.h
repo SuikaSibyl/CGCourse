@@ -2,6 +2,10 @@
 
 #include "../Core/Object3D.h"
 
+extern int tessx;
+extern int tessy;
+extern bool gouraud;
+
 class Sphere :public Object3D
 {
 public:
@@ -12,4 +16,10 @@ public:
 private:
 	float radius;
 	Vec3f center;
+
+	void BuildMesh();
+	Vec3f getPoint(float u, float v);
+	int num;
+	Vec3f* points;
+	Vec3f* normals;
 };

@@ -12,6 +12,7 @@ public:
 
 private:
 	Matrix matrix;
+	Matrix inverse;
 	Matrix invTranspose;
 	Object3D* Object;
 };
