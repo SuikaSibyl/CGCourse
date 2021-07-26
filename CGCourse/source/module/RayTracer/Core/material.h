@@ -39,11 +39,35 @@ protected:
 
 // ====================================================================
 // ====================================================================
-
-class PhongMaterial : public Material
+class PhongMaterial_v2 : public Material
 {
 public:
-	PhongMaterial(const Vec3f& diffuseColor, const Vec3f& specularColor, const float& exponent)
+	PhongMaterial_v2(const Vec3f& diffuseColor,
+		const Vec3f& specularColor,
+		float exponent,
+		const Vec3f& reflectiveColor,
+		const Vec3f& transparentColor,
+		float indexOfRefraction);
+
+	virtual Vec3f getSpecularColor() const { return specularColor; }
+
+	virtual Vec3f Shade(const Ray& ray, const Hit& hit, const Vec3f& dirToLight,
+		const Vec3f& lightColor) const;
+
+	virtual void glSetMaterial(void) const;
+private:
+	// REPRESENTATION
+	Vec3f specularColor;
+	float exponent;
+};
+
+#pragma region DEPRECATED
+#if (RTVersion < 4)
+
+class PhongMaterial_v1 : public Material
+{
+public:
+	PhongMaterial_v1(const Vec3f& diffuseColor, const Vec3f& specularColor, const float& exponent)
 		: Material(diffuseColor)
 		, specularColor(specularColor)
 		, exponent(exponent)
@@ -62,5 +86,7 @@ private:
 	Vec3f specularColor;
 	float exponent;
 };
+#endif
+#pragma endregion
 
 #endif

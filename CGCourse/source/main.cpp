@@ -17,4 +17,7 @@ int main(int argc, char* argv[])
 #if(ASSIGNMENT==3)
 	Assignment::Assignment3Main(argc, argv);
 #endif
+#if(ASSIGNMENT==4)
+	Assignment::Assignment4Main(argc, argv);
+#endif
 }

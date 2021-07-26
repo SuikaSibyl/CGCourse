@@ -10,19 +10,19 @@
 #include <RayTracer/Core/light.h>
 #include <OpenGL/Core/GLCanvas.h>
 
-#if (RTVersion==3)
+#if (RTVersion==4)
 
 #define DEPTHMAP(x) if(depth_file!=NULL){x}
 #define NORMALMAP(x) if(normal_file!=NULL){x}
 
-char* input_file = NULL;
-int num_points = 10000;
-int num_iters = 10;
-int size_width = 0, size_height = 0;
-char* output_file = NULL;
-char* depth_file = NULL;
-char* normal_file = NULL;
-float depth_min = 0, depth_max = 0, depth_rerange = 1;
+extern char* input_file = NULL;
+extern int num_points = 10000;
+extern int num_iters = 10;
+extern int size_width = 0, size_height = 0;
+extern char* output_file = NULL;
+extern char* depth_file = NULL;
+extern char* normal_file = NULL;
+extern float depth_min = 0, depth_max = 0, depth_rerange = 1;
 
 bool shadeback = false;
 
@@ -98,16 +98,15 @@ void Render()
     assert(output_file != NULL);
     pImg.SaveTGA((string("resource/output/") + string(output_file)).c_str());
     DEPTHMAP(pImgD.SaveTGA((string("resource/output/") + string(depth_file)).c_str());)
-    NORMALMAP(pImgN.SaveTGA((string("resource/output/") + string(normal_file)).c_str());)
+        NORMALMAP(pImgN.SaveTGA((string("resource/output/") + string(normal_file)).c_str());)
 }
-
 #endif
 
 #pragma warning(disable:4996)
-int Assignment::Assignment3Main(int argc, char* argv[])
+int Assignment::Assignment4Main(int argc, char* argv[])
 {
 
-#if (RTVersion==3)
+#if (RTVersion==4)
 
     bool useGUI = false;
 
@@ -149,7 +148,7 @@ int Assignment::Assignment3Main(int argc, char* argv[])
             i++; assert(i < argc);
             tessx = atoi(argv[i]);
             i++; assert(i < argc);
-            tessy = atoi(argv[i]); 
+            tessy = atoi(argv[i]);
         }
         else if (!strcmp(argv[i], "-gouraud")) {
             gouraud = true;
@@ -158,7 +157,7 @@ int Assignment::Assignment3Main(int argc, char* argv[])
             printf("whoops error with command line argument %d: '%s'\n", i, argv[i]);
             assert(0);
         }
-    } 
+    }
 
     // ========================================================
     // ========================================================
@@ -179,7 +178,7 @@ int Assignment::Assignment3Main(int argc, char* argv[])
     return 0;
 
 #else
-    std::cout << "Please switch to RayTracer History Version 3" << endl;
+    std::cout << "Please switch to RayTracer History Version 4" << endl;
     return 1;
 #endif
 }
