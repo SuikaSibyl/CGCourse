@@ -75,6 +75,12 @@
     <ClCompile Include="source\course\assignment4.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="source\module\RayTracer\Core\RayTracer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\Core\RayTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\module\Image\image.h">
@@ -141,6 +147,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="source\Settings.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Core\RayTracer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Core\RayTree.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

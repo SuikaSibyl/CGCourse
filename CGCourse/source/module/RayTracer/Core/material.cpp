@@ -16,7 +16,12 @@ PhongMaterial_v2::PhongMaterial_v2(
     const Vec3f& reflectiveColor,
     const Vec3f& transparentColor,
     float indexOfRefraction)
-    :Material(diffuseColor)
+    : Material(diffuseColor)
+    , specularColor(specularColor)
+    , reflectiveColor(reflectiveColor)
+    , transparentColor(transparentColor)
+    , exponent(exponent)
+    , indexOfRefraction(indexOfRefraction)
 {
 
 }

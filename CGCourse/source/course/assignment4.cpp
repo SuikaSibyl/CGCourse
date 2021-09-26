@@ -25,8 +25,18 @@ extern char* normal_file = NULL;
 extern float depth_min = 0, depth_max = 0, depth_rerange = 1;
 
 bool shadeback = false;
+bool shadows = false;
+bool bounces = false;
+bool weight = false;
+int nBounce = 0;
+float fWeight = 0;
 
 SceneParser* scene;
+
+void TraceRay(float a, float b)
+{
+
+}
 
 void Render()
 {
@@ -39,7 +49,7 @@ void Render()
     Vec3f black(0, 0, 0);
     pImgD.SetAllPixels(black);
     NORMALMAP(pImgN.SetAllPixels(black););
-    Material* black_mat = new PhongMaterial(black, black, 0);
+    Material* black_mat = new PhongMaterial(black, black, 0, black, black, 1);
 
     // prepare
     Camera* camera = scene->getCamera();
@@ -153,6 +163,19 @@ int Assignment::Assignment4Main(int argc, char* argv[])
         else if (!strcmp(argv[i], "-gouraud")) {
             gouraud = true;
         }
+        else if (!strcmp(argv[i], "-shadows")) {
+            shadows = true;
+        }
+        else if (!strcmp(argv[i], "-bounces ")) {
+            bounces = true;
+            i++; assert(i < argc);
+            nBounce = atoi(argv[i]);
+        }
+        else if (!strcmp(argv[i], "-weight")) {
+            weight = true;
+            i++; assert(i < argc);
+            fWeight = atof(argv[i]);
+        }
         else {
             printf("whoops error with command line argument %d: '%s'\n", i, argv[i]);
             assert(0);
@@ -169,7 +192,7 @@ int Assignment::Assignment4Main(int argc, char* argv[])
     if (useGUI)
     {
         GLCanvas canvas;
-        canvas.initialize(scene, Render);
+        canvas.initialize(scene, Render, TraceRay);
     }
     else
     {

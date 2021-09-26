@@ -58,7 +58,10 @@ public:
 private:
 	// REPRESENTATION
 	Vec3f specularColor;
+	Vec3f reflectiveColor;
+	Vec3f transparentColor;
 	float exponent;
+	float indexOfRefraction;
 };
 
 #pragma region DEPRECATED
