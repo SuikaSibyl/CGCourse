@@ -9,6 +9,7 @@ public:
 	Transform(Matrix& m, Object3D* o);
 	virtual void paint(void) override;
 	virtual bool intersect(const Ray& r, Hit& h, float tmin) override;
+	virtual void insertIntoGrid(Grid* g, Matrix* m) override;
 
 private:
 	Matrix matrix;

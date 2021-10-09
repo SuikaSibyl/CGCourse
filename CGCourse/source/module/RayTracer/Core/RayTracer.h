@@ -1,17 +1,23 @@
 #pragma once
 #include <LinearAlgebra/vectors.h>
+#include <RayTracer/Core/scene_parser.h>
+#include <RayTracer/VersionControl.h>
+#include <RayTracer/Primitives/Grid.h>
 
-class SceneParser;
 class Ray;
 class Hit;
+
+extern int gridx, gridy, gridz;
+extern bool grid;
+extern bool visualize_grid;
 
 // computes the radiance (color) along a ray.
 class RayTracer
 {
 public:
-	RayTracer(SceneParser* s, int max_bounces, float cutoff_weight, bool shadows);
+	RayTracer(SceneParser_v6* s, int max_bounces, float cutoff_weight, bool shadows);
 
-private:
+public:
 	// The main method of this class is traceRay that, 
 	// given a ray, computes the color seen from the origin along the direction.
 	// This computation is recursive for reflected or transparent materials.
@@ -33,4 +39,24 @@ private:
 
 	Vec3f traceRay(Ray& ray, float tmin, int bounces, float weight,
 		float indexOfRefraction, Hit& hit) const;
+
+	Grid* GetGrid() { return ScopeGrid.get(); }
+
+private:
+	enum class RayType
+	{
+		Reflect,
+		Refract,
+	};
+
+	Vec3f iteratorRay(Ray& ray, int bounces, float tmin, RayType type, Vec3f weight) const;
+	bool shadowRay(Vec3f& position, Light* light) const;
+
+	SceneParser_v6* pSceneParser;
+	bool mUseShadow;
+	bool mShadeback;
+	int mMaxBounce;
+	float mCutoffweight;
+
+	std::unique_ptr<Grid> ScopeGrid;
 };

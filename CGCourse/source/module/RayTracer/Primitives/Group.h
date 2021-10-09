@@ -10,6 +10,8 @@ public:
 	~Group();
 	virtual bool intersect(const Ray& r, Hit& h, float tmin) override;
 	virtual void paint(void) override;
+	virtual void insertIntoGrid(Grid* g, Matrix* m) override;
+
 	void addObject(int index, Object3D* obj);
 
 private:

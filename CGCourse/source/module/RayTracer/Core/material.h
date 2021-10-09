@@ -23,12 +23,15 @@ public:
 
   // ACCESSORS
   virtual Vec3f getDiffuseColor() const { return diffuseColor; }
+  virtual Vec3f getReflectiveColor() const { return Vec3f(); }
+  virtual Vec3f getTransparentColor() const { return Vec3f(); }
+  virtual float getIndexOfRefraction() const { return 1; }
 
 #if (RTVersion>2)
   virtual Vec3f Shade (const Ray& ray, const Hit& hit, const Vec3f& dirToLight,
-	  const Vec3f& lightColor) const = 0;
+	  const Vec3f& lightColor) const;
 
-  virtual void glSetMaterial(void) const = 0;
+  virtual void glSetMaterial(void) const;
 #endif
 protected:
 
@@ -50,6 +53,9 @@ public:
 		float indexOfRefraction);
 
 	virtual Vec3f getSpecularColor() const { return specularColor; }
+	virtual Vec3f getReflectiveColor() const { return reflectiveColor; }
+	virtual Vec3f getTransparentColor() const { return transparentColor; }
+	virtual float getIndexOfRefraction() const { return indexOfRefraction; }
 
 	virtual Vec3f Shade(const Ray& ray, const Hit& hit, const Vec3f& dirToLight,
 		const Vec3f& lightColor) const;

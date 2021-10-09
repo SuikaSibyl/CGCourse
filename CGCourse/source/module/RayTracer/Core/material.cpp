@@ -7,8 +7,71 @@
 #include <gl/GL.h>
 #include <OpenGL/ThirdParty/glut.h>
 
+Vec3f Material::Shade(const Ray& ray, const Hit& hit, const Vec3f& dirToLight,
+    const Vec3f& lightColor) const
+{
+    // Shading
+    Vec3f radiance(0, 0, 0);
+    Vec3f albedo = hit.getMaterial()->getDiffuseColor();
+    Vec3f normal = hit.getNormal();
+
+    // Diffuse
+    Vec3f diffuse(0, 0, 0);
+    Vec3f::Mult(diffuse, albedo, lightColor);
+    float cosine = normal.Dot3(dirToLight);
+    diffuse *= max(normal.Dot3(dirToLight), 0.0f);
+    radiance += diffuse;
+
+    return radiance;
+}
+
+void Material::glSetMaterial(void) const
+{
+    GLfloat one[4] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat zero[4] = { 0.0, 0.0, 0.0, 0.0 };
+    GLfloat diffuse[4] = {
+      getDiffuseColor().r(),
+      getDiffuseColor().g(),
+      getDiffuseColor().b(),
+      1.0 };
+
+#if !SPECULAR_FIX 
+
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, diffuse);
+
+#else
+
+    // OPTIONAL: 3 pass rendering to fix the specular highlight 
+    // artifact for small specular exponents (wide specular lobe)
+
+    if (SPECULAR_FIX_WHICH_PASS == 0) {
+        // First pass, draw only the specular highlights
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, zero);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, zero);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, &glexponent);
+
+    }
+    else if (SPECULAR_FIX_WHICH_PASS == 1) {
+        // Second pass, compute normal dot light 
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, one);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, zero);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, zero);
+    }
+    else {
+        // Third pass, add ambient & diffuse terms
+        assert(SPECULAR_FIX_WHICH_PASS == 2);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, diffuse);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, zero);
+    }
+
+#endif
+}
+
 #pragma region V2
-#if (RTVersion==4)
+#if (RTVersion>=4)
 PhongMaterial_v2::PhongMaterial_v2(
     const Vec3f& diffuseColor,
     const Vec3f& specularColor,
@@ -38,7 +101,7 @@ Vec3f PhongMaterial_v2::Shade(const Ray& ray, const Hit& hit, const Vec3f& dirTo
 {
     // Shading
     Vec3f radiance(0, 0, 0);
-    Vec3f albedo = hit.getMaterial()->getDiffuseColor();
+    Vec3f albedo = getDiffuseColor();
     Vec3f normal = hit.getNormal();
 
     // Diffuse

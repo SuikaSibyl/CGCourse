@@ -81,6 +81,66 @@
     <ClCompile Include="source\module\RayTracer\Core\RayTree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="source\course\assignment5.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\Core\BoundingBox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\Primitives\Grid.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\Core\RayTracingStas.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\course\assignment6.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\Core\Noise.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\Core\Checkerboard.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\Materials\PerlinNoise.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\course\assignment7.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\AntiAliasing\Film.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\RayTracer\AntiAliasing\Filter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\course\assignment8.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\SplineEditor\SplineParser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\SplineEditor\TriangleMesh.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\SplineEditor\glCanvasSE.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\course\assignment9.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\ParticleSystem\glCanvasPS.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\ParticleSystem\Particle.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\ParticleSystem\System.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\module\ParticleSystem\Parser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\module\Image\image.h">
@@ -153,6 +213,90 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="source\module\RayTracer\Core\RayTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Core\BoundingBox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Primitives\Grid.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Core\RayTracingStas.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Core\Noise.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Core\Checkerboard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Materials\Marble.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Materials\Wood.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\Materials\PerlinNoise.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\AntiAliasing\Sample.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\AntiAliasing\Film.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\AntiAliasing\Sampler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\RayTracer\AntiAliasing\Filter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\SplineEditor\ArgParser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\SplineEditor\SplineParser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\SplineEditor\Spline.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\SplineEditor\Curve.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\SplineEditor\Surface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\SplineEditor\TriangleMesh.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\SplineEditor\glCanvasSE.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\ParticleSystem\glCanvasPS.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\ParticleSystem\Particle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\ParticleSystem\System.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\ParticleSystem\Parser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\ParticleSystem\ParticleSet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\ParticleSystem\Random.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\ParticleSystem\Generator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\ParticleSystem\Integrator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\module\ParticleSystem\Forcefield.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

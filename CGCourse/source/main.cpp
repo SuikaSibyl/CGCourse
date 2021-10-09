@@ -20,4 +20,22 @@ int main(int argc, char* argv[])
 #if(ASSIGNMENT==4)
 	Assignment::Assignment4Main(argc, argv);
 #endif
+#if(ASSIGNMENT==5)
+	Assignment::Assignment5Main(argc, argv);
+#endif
+#if(ASSIGNMENT==6)
+	Assignment::Assignment6Main(argc, argv);
+#endif
+#if(ASSIGNMENT==7)
+	Assignment::Assignment7Main(argc, argv);
+#endif
+#if(ASSIGNMENT==8)
+	if (std::string(argv[1]) == "curve_editor")
+		Assignment::Assignment8Main(argc, argv);
+	else if (std::string(argv[1]) == "raytracer")
+		Assignment::Assignment7Main(argc, argv);
+#endif
+#if(ASSIGNMENT==9)
+	Assignment::Assignment9Main(argc, argv);
+#endif
 }

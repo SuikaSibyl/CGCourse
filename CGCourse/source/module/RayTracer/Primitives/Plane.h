@@ -8,6 +8,7 @@ public:
 	Plane(Vec3f& normal, float d, Material* m);
 	virtual void paint(void) override;
 	virtual bool intersect(const Ray& r, Hit& h, float tmin) override;
+	virtual void insertIntoGrid(Grid* g, Matrix* m) override;
 
 private:
 	Vec3f normal;

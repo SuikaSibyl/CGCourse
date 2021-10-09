@@ -66,5 +66,6 @@ private:
 	Vec3f leftbottom;
 
 	float width;
+	float height;
 	float angle;
 };

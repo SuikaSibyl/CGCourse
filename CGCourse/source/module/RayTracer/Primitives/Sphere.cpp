@@ -2,6 +2,9 @@
 #include "../VersionControl.h"
 #include <Windows.h>
 #include <gl/GL.h>
+#include "Grid.h"
+#include <matrix.h>
+#include <RayTracer/Core/RayTracingStas.h>
 
 int tessx = 0, tessy = 0;
 bool gouraud = false;
@@ -11,6 +14,10 @@ Sphere::Sphere(Vec3f center, float radius, Material* mat)
 {
 	this->mat = mat;
 	BuildMesh();
+
+	boundingBox = new BoundingBox(
+		center - Vec3f(radius, radius, radius),
+		center + Vec3f(radius, radius, radius));
 }
 
 Vec3f Sphere::getPoint(float u, float v)
@@ -51,10 +58,10 @@ void Sphere::BuildMesh()
 			if (gouraud)
 			{
 				Vec3f normal1, normal2, normal3, normal4;
-				normal1 = (point1 - center);  normal1.Normalize();
-				normal2 = (point2 - center);  normal2.Normalize();
-				normal3 = (point3 - center);  normal3.Normalize();
-				normal4 = (point4 - center);  normal4.Normalize();
+				normal1 = (center - point1);  normal1.Normalize();
+				normal2 = (center - point2);  normal2.Normalize();
+				normal3 = (center - point3);  normal3.Normalize();
+				normal4 = (center - point4);  normal4.Normalize();
 
 				memcpy(normals + offset + 0, &normal1, 3 * sizeof(float));
 				memcpy(normals + offset + 1, &normal3, 3 * sizeof(float));
@@ -97,6 +104,8 @@ void Sphere::BuildMesh()
 
 bool Sphere::intersect(const Ray& r, Hit& h, float tmin)
 {
+	RayTracingStats::IncrementNumIntersections();
+
 	const Vec3f& origin = r.getOrigin();
 	const Vec3f& direction = r.getDirection();
 
@@ -136,7 +145,7 @@ bool Sphere::intersect(const Ray& r, Hit& h, float tmin)
 #if(RTVersion==1)
 		h.set(nearest, this->mat, r);
 #endif
-#if(RTVersion==2 | RTVersion==3)
+#if(RTVersion>=2)
 		Vec3f hitpoint = r.pointAtParameter(nearest);
 		Vec3f normal = hitpoint - center;
 		normal.Normalize();
@@ -163,4 +172,37 @@ void Sphere::paint(void)
 		glVertex3f(points[i + 2].x(), points[i + 2].y(), points[i + 2].z());
 	}
 	glEnd();
+}
+
+void Sphere::insertIntoGrid(Grid* g, Matrix* m)
+{
+	int x, y, z;
+	g->GetGridSegments(x, y, z);
+
+	for (int i = 0; i < x; i++)
+		for (int j = 0; j < y; j++)
+			for (int k = 0; k < z; k++)
+			{
+				Vec3f center = this->center;
+				if (m != nullptr) m->Transform(center);
+				Vec3f offset = g->GetVoxelCenter(i, j, k) - center;
+
+				float half = g->GetVoxelSizeHalf().Length();
+				float radius = this->radius;
+				if (m != nullptr)
+				{
+					Vec3f dir = offset;
+					dir.Normalize();
+					dir = radius * dir;
+
+					m->TransformDirection(dir);
+					radius = dir.Length();
+				}
+				if (offset.Length() - half < radius)
+				{
+					g->SetVoxelState(i, j, k, true);
+					DrawItem item = { (Object3D*)this, m };
+					g->InsertVoxelItem(i, j, k, item);
+				}
+			}
 }

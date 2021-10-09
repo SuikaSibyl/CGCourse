@@ -1,6 +1,9 @@
 #include "Plane.h"
 #include <Windows.h>
 #include <gl/GL.h>
+#include "Grid.h"
+#include <RayTracer/Core/RayTracingStas.h>
+#include "Triangle.h"
 
 Plane::Plane(Vec3f& normal, float d, Material* m)
 	:distance(d)
@@ -24,8 +27,16 @@ Plane::Plane(Vec3f& normal, float d, Material* m)
 	p4 = zero + big * axis1 - big * axis2;
 }
 
+void Plane::insertIntoGrid(Grid* g, Matrix* m)
+{
+	DrawItem item = { this,m };
+	g->InsertPlane(item);
+}
+
 bool Plane::intersect(const Ray& r, Hit& h, float tmin)
 {
+	RayTracingStats::IncrementNumIntersections();
+
 	const Vec3f& origin = r.getOrigin();
 	const Vec3f& direction = r.getDirection();
 
@@ -43,7 +54,7 @@ bool Plane::intersect(const Ray& r, Hit& h, float tmin)
 	if (distance < tmin) return false;
 	if (distance < h.getT())
 	{
-#if(RTVersion==2 | RTVersion==3)
+#if(RTVersion>=2)
 		h.set(distance, this->mat, normal, r);
 #endif
 	}

@@ -132,6 +132,7 @@ void PerspectiveCamera::dollyCamera(float dist) {
 // ==================================================================== 
 void PerspectiveCamera::truckCamera(float dx, float dy) {
 	center += horizontal * dx + up * dy;
+	std::cout << "center: " << center.x() << " " << center.y() << " " << center.z() << std::endl;
 	RefreshCamera();
 }
 // ==================================================================== 

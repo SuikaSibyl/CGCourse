@@ -4,6 +4,7 @@
 #include <RayTracer/Core/scene_parser.h>
 #include <Image/image.h>
 #include <RayTracer/Core/Camera.h>
+#include <RayTracer/Core/RayTracer.h>
 #include <RayTracer/Primitives/Group.h>
 #include <RayTracer/Primitives/Sphere.h>
 #include <limits>
@@ -32,24 +33,28 @@ int nBounce = 0;
 float fWeight = 0;
 
 SceneParser* scene;
+RayTracer* rayTracer;
+
+Vec3f black(0, 0, 0);
+Material* black_mat = new PhongMaterial(black, black, 0, black, black, 1);
 
 void TraceRay(float a, float b)
 {
-
+    Hit hit((float)numeric_limits<float>::max(), black_mat, Vec3f(0, 0, 0));
+    Camera* camera = scene->getCamera();
+    Ray r = camera->generateRay(Vec2f(a, b));
+    Vec3f radiance = rayTracer->traceRay(r, 0, 5, 0, 5, hit);
 }
 
 void Render()
 {
-
     Image pImg = Image(size_width, size_height);
     Image pImgD = Image(size_width, size_height);
     Image pImgN = Image(size_width, size_height);
 
     pImg.SetAllPixels(scene->getBackgroundColor());
-    Vec3f black(0, 0, 0);
     pImgD.SetAllPixels(black);
     NORMALMAP(pImgN.SetAllPixels(black););
-    Material* black_mat = new PhongMaterial(black, black, 0, black, black, 1);
 
     // prepare
     Camera* camera = scene->getCamera();
@@ -64,43 +69,15 @@ void Render()
         {
             Hit hit((float)numeric_limits<float>::max(), black_mat, Vec3f(0, 0, 0));
             Ray r = camera->generateRay(Vec2f(step_width * i, step_height * j));
-            bool intersected = group->intersect(r, hit, tmin);
-            if (intersected)
+            Vec3f radiance = rayTracer->traceRay(r, 0, 5, 0, 5, hit);
+
+            if (radiance == Vec3f(-1, -1, -1))
             {
-                // Shading
-                Vec3f radiance(0, 0, 0);
-                Vec3f albedo = hit.getMaterial()->getDiffuseColor();
-                Vec3f::Mult(radiance, albedo, scene->getAmbientLight());
-                Vec3f position = hit.getIntersectionPoint();
-                Vec3f normal = hit.getNormal();
-                if (!shadeback && normal.Dot3(r.getDirection()) > 0)
-                {
-                    pImg.SetPixel(i, j, black);
-                    continue;
-                }
 
-                for (int k = 0; k < scene->getNumLights(); k++)
-                {
-                    Light* light = scene->getLight(k);
-                    Vec3f dir, col;
-                    light->getIllumination(position, dir, col);
-                    Vec3f outrad = hit.getMaterial()->Shade(r, hit, dir, col);
-                    radiance += outrad;
-                }
-
+            }
+            else
+            {
                 pImg.SetPixel(i, j, radiance);
-
-                NORMALMAP(
-                    pImgN.SetPixel(i, j, Vec3f(abs(normal.x()), abs(normal.y()), abs(normal.z())));
-                );
-
-                DEPTHMAP(
-                    float depth = hit.getT();
-                depth = (depth - depth_min) * depth_rerange;
-                if (depth > 1) depth = 1;
-                depth = 1 - depth;
-                pImgD.SetPixel(i, j, Vec3f(depth, depth, depth));
-                );
             }
         }
 
@@ -166,7 +143,7 @@ int Assignment::Assignment4Main(int argc, char* argv[])
         else if (!strcmp(argv[i], "-shadows")) {
             shadows = true;
         }
-        else if (!strcmp(argv[i], "-bounces ")) {
+        else if (!strcmp(argv[i], "-bounces")) {
             bounces = true;
             i++; assert(i < argc);
             nBounce = atoi(argv[i]);
@@ -185,10 +162,12 @@ int Assignment::Assignment4Main(int argc, char* argv[])
     // ========================================================
     // ========================================================
     // open the file
-    std::string file_path = "./resource/assignment3/";
+    std::string file_path = "./resource/assignment4/";
     std::string file_input = input_file;
 
     scene = new SceneParser((file_path + file_input).c_str());
+    rayTracer = new RayTracer(scene, nBounce, fWeight, shadows);
+
     if (useGUI)
     {
         GLCanvas canvas;

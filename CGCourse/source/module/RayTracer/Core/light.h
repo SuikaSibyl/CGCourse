@@ -101,7 +101,11 @@ public:
     }
 
     // VIRTUAL METHOD
-    void getIllumination(const Vec3f& p, Vec3f& dir, Vec3f& col) const { }
+    void getIllumination(const Vec3f& p, Vec3f& dir, Vec3f& col) const
+    {
+        float distanceToLight;
+        getIllumination(p, dir, col, distanceToLight);
+    }
 
     void glInit(int id);
 
